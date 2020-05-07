@@ -19,20 +19,62 @@ def main():
   print()
   print("Keep it logically awesome JAnDo.")
 
-  print()
-  f = open("quotes.txt")
-  quotes = f.readlines()
-  f.close()
+  varResp0 = input("Wish to add extra line to the file y/n?: ")
+  varResp=varResp0.upper()
+  print("Resp: " + varResp)
+  
 
-  #print(quotes)
-  #print(len(quotes))
+  varFilename = "quotes.txt"
+
+  global varLast
+  global varExtNum
+  global quotes
+
+  varLast = 0
+  varExtNum = 0
+  quotes = []
+
+  def readJFile():
+    global varLast
+    global varExtNum
+    global quotes
+    f = open(varFilename)
+    #quotes = f.readlines() #Keeps \n
+    quotes = f.read().splitlines()  #Eliminates \n
+    varLast = len(quotes) - 1
+    varExtNum = len(quotes)
+    f.close()
+
+
+  if varResp == "Y":
+    #varExtNum = readJFile()
+    readJFile()
+    f = open(varFilename, 'a+')
+    print()
+    varExtraLine = "Python-random-quote, line: " + str(varExtNum) +  "\n"
+    f.write(varExtraLine)
+
+    print("{}".format(varExtraLine))
+    f.close()
+    # varExtNum = readJFile()
+
+  else:
+    print("No extra line")
+
+  #varExtNum = readJFile()
+  readJFile()
+
+  print()
+
+  print(quotes)
+  print()
+  print("Number of lines: " + str(len(quotes)))
+  print()
 
   print("First")
   print(quotes[0])
 
-  varLast = len(quotes) - 1
-
-  print("Last")
+  print("Last: " + str(varLast))
   print(quotes[varLast])
 
   varRand = random.randint(0, varLast)
